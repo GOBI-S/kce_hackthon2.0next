@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Terminal, Users, Code } from "lucide-react";
+import { ArrowLeft, Terminal, Code } from "lucide-react";
 import axios from "axios";
 interface FormData {
   teamName: string;
@@ -177,9 +177,13 @@ export default function RegisterPage() {
       } else {
         alert("Something went wrong. Please try again later.");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error submitting registration:", error);
-      alert(error.response?.data?.message || "Failed to submit registration.");
+  if (axios.isAxiosError(error)) {
+    alert(error.response?.data?.message || "Failed to submit registration.");
+  } else {
+    alert("Failed to submit registration.");
+  }
     } finally {
       setIsSubmitting(false); // stop loading
     }
