@@ -13,13 +13,30 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASS,
   },
 });
+interface RegistrationBody {
+  teamName: string;
+  teamSize: number;
+  leaderName: string;
+  leaderEmail: string;
+  leaderPhone: string;
+  college?: string;
+  experience: string;
+  techStack: string;
+  projectTopic: string;
+  projectIdea: string;
+  agreeTerms: boolean;
+  memberNames: string[];
+  transactionId: string;
+  paymentAmount: number;
+}
+
 
 // Handle POST request
-export async function POST(req: any) {
+export async function POST(req:Request) {
   try {
     await dbConnect();
 
-    const body = await req.json();
+    const body = (await req.json()) as RegistrationBody;
     const {
       teamName,
       teamSize,
