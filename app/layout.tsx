@@ -16,9 +16,8 @@ const sourceCodePro = Source_Code_Pro({
 })
 
 export const metadata: Metadata = {
-  title: "CyberHack 2025 | Rotaract Club Hackathon",
-  description: "Join the ultimate cyberpunk hackathon competition at our college. Code, compete, conquer.",
-  generator: "v0.app",
+  title: "Caesar-Cipher 2025 | Rotaract Club Of KCE",
+  description: "Join the ultimate  hackathon competition at our college. Code, compete, conquer.",
 }
 
 export default function RootLayout({
