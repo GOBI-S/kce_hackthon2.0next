@@ -1,5 +1,6 @@
 "use client";
-import { useRouter } from "next/navigation"; 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type React from "react";
 import { useState } from "react";
 import Link from "next/link";
@@ -150,7 +151,7 @@ export default function RegisterPage() {
   const feePerPerson = 100;
   const totalFee = teamCount * feePerPerson;
   const finalData = { ...formData, paymentAmount: totalFee };
-  console.log(finalData)
+  console.log(finalData);
 
   // Handle Form Submit
   const handleSubmit = async (e: React.FormEvent) => {
@@ -164,14 +165,14 @@ export default function RegisterPage() {
 
     const finalData = { ...formData, paymentAmount: totalFee };
     setIsSubmitting(true);
-    
+
     try {
       const response = await axios.post("/api/register", finalData); // <-- adjust URL
       if (response.status === 200) {
         alert(
           "Registration submitted successfully! Check your email for confirmation."
         );
-         router.push("/");
+        router.push("/");
         console.log("Server Response:", response.data);
       } else {
         alert("Something went wrong. Please try again later.");
@@ -179,15 +180,15 @@ export default function RegisterPage() {
     } catch (error: any) {
       console.error("Error submitting registration:", error);
       alert(error.response?.data?.message || "Failed to submit registration.");
-    }finally{
-       setIsSubmitting(false); // stop loading
+    } finally {
+      setIsSubmitting(false); // stop loading
     }
   };
 
   // QR code image URL - replace with your actual QR code image or URL
   const qrCodeUrl =
     "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=gobidreamer@oksbi&pn=CaesarCipher2025&am=" +
-totalFee;
+    totalFee;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -612,13 +613,14 @@ totalFee;
                   Each member pays ₹100, total: <strong>₹{totalFee}</strong>
                 </p>
                 <div>
-                  <img
+                  <Image
                     src={qrCodeUrl}
                     alt="Payment QR Code"
                     className="mx-auto mb-6 border border-border rounded"
                     width={200}
                     height={200}
                   />
+
                   <p className="mb-4 text-muted-foreground">
                     Scan this QR code with your payment app (e.g., UPI), pay the
                     amount, then enter your transaction ID below.
@@ -684,11 +686,10 @@ totalFee;
             </div>
           </form>
           {isSubmitting && (
-  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div className="loader border-4 border-t-primary border-gray-200 rounded-full w-12 h-12 animate-spin"></div>
-  </div>
-)}
-
+            <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+              <div className="loader border-4 border-t-primary border-gray-200 rounded-full w-12 h-12 animate-spin"></div>
+            </div>
+          )}
         </Card>
       </div>
     </div>
